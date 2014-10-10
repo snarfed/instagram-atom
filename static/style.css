@@ -1,0 +1,92 @@
+/* colors and ideas largely stolen from Google+. */
+body {
+  background-color: white;
+  color: black;
+  margin: 1em;
+  margin-top: 2em;
+}
+
+body, input, textarea {
+  font-family: Arial, sans-serif;
+  font-size: medium;
+}
+
+#body, #graybody {
+  clear: both;
+  margin: 1em 0 0 1em;
+}
+
+#header {
+  margin: 1.5em 0 0 .5em;
+  border-left
+}
+
+#title, #bottom {
+  padding: .3em;
+  background-color: #2d2d2d;
+  color: #eee;
+  font-weight: bold;
+}
+
+#title {
+  border-top: 1px solid #9999dd;
+  border-top-right-radius: .3em;
+  -moz-outline-radius-topright: .3em;
+  margin-bottom: 2em;
+
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+#bottom {
+  border-bottom: 1px solid #9999dd;
+  border-bottom-right-radius: .3em;
+  border-bottom-left-radius: .3em;
+  -moz-outline-radius-bottomleft: .3em;
+  -moz-outline-radius-bottomright: .3em;
+  margin-top: 2em;
+
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+.error {
+  color: red;
+  font-style: italic;
+}
+
+#footer {
+  margin-top: 1.5em;
+  text-align: right;
+}
+
+#footer img {
+  vertical-align: middle;
+}
+
+a {
+  color: #36c;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+}
+
+a img {
+  border: none;
+}
+
+img#logo {
+  float: left;
+  background-color: white;
+  margin-right: .5em;
+  padding-right: .5em;
+  padding-bottom: .5em;
+  margin-top: -1em;
+}
+
+/* for debugging */
+/* * { */
+/*   border: 1px solid green; */
+/* } */
