@@ -28,14 +28,26 @@ body, input, textarea {
   font-weight: bold;
 }
 
+#title, #bottom, #start {
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+#start {
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+#start:hover {
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.6);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.6);
+}
+
 #title {
   border-top: 1px solid #9999dd;
   border-top-right-radius: .3em;
   -moz-outline-radius-topright: .3em;
   margin-bottom: 2em;
-
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
 }
 
 #bottom {
@@ -45,9 +57,6 @@ body, input, textarea {
   -moz-outline-radius-bottomleft: .3em;
   -moz-outline-radius-bottomright: .3em;
   margin-top: 2em;
-
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
 }
 
 .error {

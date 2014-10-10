@@ -1,9 +1,9 @@
-facebook-atom
+instagram-atom
 =============
 
-A webapp that generates and serves an Atom feed of your Facebook news feed, ie
-posts from your friends.
+A webapp that generates and serves an Atom feed of your Instagram feed, ie
+photos from people you follow.
 
-Deployed on App Engine at https://facebook-atom.appspot.com/
+Deployed on App Engine at https://instagram-atom.appspot.com/
 
 License: This project is placed in the public domain.
