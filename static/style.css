@@ -45,7 +45,9 @@ body, input, textarea {
 
 #title {
   border-top: 1px solid #9999dd;
+  border-top-left-radius: .3em;
   border-top-right-radius: .3em;
+  -moz-outline-radius-topleft: .3em;
   -moz-outline-radius-topright: .3em;
   margin-bottom: 2em;
 }
