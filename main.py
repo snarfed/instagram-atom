@@ -46,11 +46,13 @@ class AtomHandler(webapp2.RequestHandler):
     host_url = self.request.host_url + "/"
     ig = instagram.Instagram(access_token=util.get_required_param(self, 'access_token'))
     activities = ig.get_activities()
+    actor = ig.get_actor()
+    title = 'instagram-atom feed for %s' % ig.actor_name(actor)
 
     self.response.headers['Content-Type'] = 'application/atom+xml'
     self.response.out.write(atom.activities_to_atom(
-        activities, ig.get_actor(), host_url=host_url,
-        request_url=self.request.path_url))
+        activities, actor, title=title,
+        host_url=host_url, request_url=self.request.path_url))
 
 
 application = webapp2.WSGIApplication(
