@@ -45,7 +45,7 @@ class AtomHandler(webapp2.RequestHandler):
   def get(self):
     host_url = self.request.host_url + "/"
     ig = instagram.Instagram(access_token=util.get_required_param(self, 'access_token'))
-    activities = ig.get_activities()
+    activities = ig.get_activities(count=50)
     actor = ig.get_actor()
     title = 'instagram-atom feed for %s' % ig.actor_name(actor)
 
