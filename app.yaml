@@ -20,8 +20,8 @@ handlers:
   static_files: static/robots.txt
   upload: static/robots.txt
 
-- url: /activitystreams/oauth_dropins/static
-  static_dir: activitystreams/oauth_dropins/static
+- url: /oauth_dropins/static
+  static_dir: local/lib/python2.7/site-packages/oauth_dropins/static
 
 - url: /
   static_files: static/index.html
@@ -32,9 +32,13 @@ handlers:
   script: main.application
   secure: always
 
+- url: /_ereporter.*
+  script: google.appengine.ext.ereporter.report_generator.application
+  login: admin
+
 skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
 - ^(.*/)?.*\.bak$
-- ^(.*/)?(debian|doc|docs|pydocs|python3|ref|samples|tests)/.*
+- ^(.*/)?(debian|docs?|examples?|l|pydocs?|python3|ref|samples?|tests?)/.*

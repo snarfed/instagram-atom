@@ -9,12 +9,12 @@ import logging
 import os
 import urllib2
 
-from activitystreams import appengine_config
-from activitystreams import atom
-from activitystreams import instagram
-from activitystreams.oauth_dropins import instagram as oauth_instagram
-from activitystreams.oauth_dropins.webutil import handlers
-from activitystreams.oauth_dropins.webutil import util
+from granary import appengine_config
+from granary import atom
+from granary import instagram
+from oauth_dropins import instagram as oauth_instagram
+from oauth_dropins.webutil import handlers
+from oauth_dropins.webutil import util
 import webapp2
 
 from google.appengine.ext.webapp import template
