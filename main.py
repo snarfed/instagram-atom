@@ -23,6 +23,10 @@ from google.appengine.ext.webapp import template
 class CallbackHandler(oauth_instagram.CallbackHandler):
   def finish(self, auth_entity, state=None):
     """Gets an access token based on an auth code."""
+    if not auth_entity:
+      logging.info('User declined Instagram auth prompt')
+      return self.redirect('/')
+
     atom_url = '%s/atom?access_token=%s' % (
       self.request.host_url, auth_entity.access_token())
     logging.info('generated feed URL: %s', atom_url)
