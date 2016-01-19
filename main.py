@@ -53,6 +53,33 @@ class AtomHandler(webapp2.RequestHandler):
     actor = ig.get_actor()
     title = 'instagram-atom feed for %s' % ig.actor_name(actor)
 
+    # switchover warning
+    activities.append({
+      'verb': 'post',
+      'published': '2016-01-19T00:00:00',
+      'id': 'tag:instagram-atom.appspot.com,2016:0',
+      'url': 'https://instagram-atom.appspot.com/',
+      'title': 'ATTENTION: Please update your instagram-atom feed!',
+      'actor': {
+        'displayName': 'Ryan Barrett',
+        'id': 'https://snarfed.org/',
+        'url': 'https://snarfed.org/',
+      },
+      'object': {
+        'id': 'tag:instagram-atom.appspot.com,2016:0',
+        'published': '2016-01-19T00:00:00',
+        'content': """
+<div style="color: red; font-style: italic;">
+  <p><b>Hi! Thanks for using instagram-atom. Instagram is
+  <a href="http://developers.instagram.com/post/133424514006/instagram-platform-update">changing their API</a>
+  in June 2016 and blocking the part we use.  Don't worry, we've adapted, but
+  you'll need to update your feed. Please
+  <a href="https://instagram-atom.appspot.com/">click here to generate a new one</a>.
+  Apologies for the inconvenience!</b></p>
+</div>""",
+      },
+    })
+
     self.response.headers['Content-Type'] = 'application/atom+xml'
     self.response.out.write(atom.activities_to_atom(
         activities, actor, title=title,
