@@ -1,12 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Instagram Atom feeds</title>
-  <link href="/static/style.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Instagram Atom feeds</title>
+<link href="/static/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+function render() {
+  sessionid = document.getElementById("sessionid").value.trim();
+  document.getElementById("link-div").style.color =
+    sessionid ? "black" : "lightgray";
+  url = window.location + "cookie?sessionid=" + sessionid;
+  document.getElementById("link").innerHTML =
+    sessionid ? "<a href='" + url + "'>" + url + "</a>" : url;
+}
+window.onload = render;
+</script>
 </head>
+
 
 <body>
 
@@ -19,22 +30,35 @@
 <p>Want an Atom feed of your Instagram stream, ie photos from the people you
 follow, that you can subscribe to and read in your favorite RSS feed reader?</p>
 
-<form method="post" action="/generate" style="text-align: center">
-<input id="start" type="image" alt="Get my feed"
-       src="/oauth_dropins/static/instagram.png" />
-</form>
+<p><a href="http://www.wikihow.com/View-Cookies" target="_blank">Follow these
+instructions</a> to extract the <code>instagram.com</code> cookie
+named <code>sessionid</code> from your browser and paste them below.</p>
+
+<nobr>
+ <label for="sessionid">sessionid</label>
+ <input type="text" id="sessionid" onChange="render()" onKeyUp="render()" />
+</nobr>
+
+<div id="link-div">
+<p>Now add this link to your feed reader, and you're done!</p>
+<p id="link">></p>
 </div>
+
+<p id="privacy" class="lead">
+This app does <em style="font-style: normal">not</em> store or use your Instagram
+data, username, password, or cookie. It only reformats your news feed and passes
+it to your feed reader when requested. You can confirm by
+<a href="https://github.com/snarfed/instagram-atom">examining its source code</a>.
+</p>
 
 <div id="bottom"></div>
 
 <div id="footer">
-  <a href="http://snarfed.org/about">Questions?</a>
-  | <a href="https://github.com/snarfed/instagram-atom">Source</a>
+  <a href="https://github.com/snarfed/instagram-atom">Source</a>
+  | <a href="https://github.com/snarfed/instagram-atom/issues">Questions?</a>
   | <a href="https://twitter-atom.appspot.com/">twitter-atom</a>
   | <a href="https://facebook-atom.appspot.com/">facebook-atom</a>
   | <a href="https://plusstreamfeed.appspot.com/">plusstreamfeed</a>
-  | <a href="http://code.google.com/appengine/">
-      <img src="/static/appengine_button_noborder.gif" /></a>
 </div>
 
 </body>

@@ -4,11 +4,14 @@ body {
   color: black;
   margin: 1em;
   margin-top: 2em;
-}
-
-body, input, textarea {
+  overflow-y: scroll;
+  max-width: 800px;
   font-family: Arial, sans-serif;
   font-size: medium;
+}
+
+label, input, #link {
+  margin-left: 1em;
 }
 
 #body, #graybody {
@@ -28,21 +31,6 @@ body, input, textarea {
   font-weight: bold;
 }
 
-#title, #bottom, #start {
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-}
-
-#start {
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-}
-
-#start:hover {
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.6);
-  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.6);
-}
-
 #title {
   border-top: 1px solid #9999dd;
   border-top-left-radius: .3em;
@@ -50,6 +38,16 @@ body, input, textarea {
   -moz-outline-radius-topleft: .3em;
   -moz-outline-radius-topright: .3em;
   margin-bottom: 2em;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+label {
+  font-weight: bold;
+}
+
+#buttons {
+  border-spacing: 2em .5em;
 }
 
 #bottom {
@@ -63,6 +61,10 @@ body, input, textarea {
 
 .error {
   color: red;
+  font-style: italic;
+}
+
+#privacy {
   font-style: italic;
 }
 
@@ -96,8 +98,3 @@ img#logo {
   padding-bottom: .5em;
   margin-top: -1em;
 }
-
-/* for debugging */
-/* * { */
-/*   border: 1px solid green; */
-/* } */
