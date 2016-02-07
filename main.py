@@ -20,21 +20,6 @@ import webapp2
 from google.appengine.ext.webapp import template
 
 
-class CallbackHandler(oauth_instagram.CallbackHandler):
-  def finish(self, auth_entity, state=None):
-    """Gets an access token based on an auth code."""
-    if not auth_entity:
-      logging.info('User declined Instagram auth prompt')
-      return self.redirect('/')
-
-    atom_url = '%s/atom?access_token=%s' % (
-      self.request.host_url, auth_entity.access_token())
-    logging.info('generated feed URL: %s', atom_url)
-    self.response.out.write(template.render(
-        os.path.join(os.path.dirname(__file__), 'templates', 'generated.html'),
-        {'atom_url': atom_url}))
-
-
 def actor_name(actor):
   return actor.get('displayName') or actor.get('username') or 'you'
 
@@ -87,7 +72,5 @@ class AtomHandler(webapp2.RequestHandler):
 
 
 application = webapp2.WSGIApplication(
-  [('/generate', oauth_instagram.StartHandler.to('/instagram/oauth_callback')),
-   ('/instagram/oauth_callback', CallbackHandler),
-   ('/atom', AtomHandler),
+  [('/atom', AtomHandler),
    ], debug=appengine_config.DEBUG)

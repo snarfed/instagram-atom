@@ -28,7 +28,7 @@ handlers:
   upload: static/index.html
   secure: always
 
-- url: /(generate|instagram/oauth_callback|atom)
+- url: /atom
   script: main.application
   secure: always
 
