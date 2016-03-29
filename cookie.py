@@ -8,12 +8,13 @@ import urllib2
 
 import appengine_config
 from granary import atom, instagram, source
-from oauth_dropins.webutil import util
+from oauth_dropins.webutil import handlers, util
 import webapp2
 from webob import exc
 
 
 class CookieHandler(webapp2.RequestHandler):
+  handle_exception = handlers.handle_exception
 
   def get(self):
     cookie = 'sessionid=%s' % urllib.quote(util.get_required_param(self, 'sessionid'))
