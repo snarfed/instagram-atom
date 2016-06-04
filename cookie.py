@@ -25,7 +25,9 @@ class CookieHandler(webapp2.RequestHandler):
       resp = ig.get_activities_response(group_id=source.FRIENDS, scrape=True,
                                         cookie=cookie)
     except Exception as e:
-      self.response.status, self.response.text = util.interpret_http_exception(e)
+      status, text = util.interpret_http_exception(e)
+      self.response.status = status or 500
+      self.response.text = text or 'Unknown error.'
       return
 
     actor = resp.get('actor')
