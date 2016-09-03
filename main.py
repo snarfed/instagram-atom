@@ -24,7 +24,7 @@ def actor_name(actor):
   return actor.get('displayName') or actor.get('username') or 'you'
 
 
-class AtomHandler(webapp2.RequestHandler):
+class AtomHandler(handlers.ModernHandler):
   """Proxies the Atom feed for a Instagram user's stream.
 
   Authenticates to the Instagram API with the user's stored OAuth credentials.

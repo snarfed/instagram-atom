@@ -13,7 +13,7 @@ import webapp2
 from webob import exc
 
 
-class CookieHandler(webapp2.RequestHandler):
+class CookieHandler(handlers.ModernHandler):
   handle_exception = handlers.handle_exception
 
   def get(self):
