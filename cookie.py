@@ -17,7 +17,8 @@ class CookieHandler(handlers.ModernHandler):
   handle_exception = handlers.handle_exception
 
   def get(self):
-    cookie = 'sessionid=%s' % urllib.quote(util.get_required_param(self, 'sessionid'))
+    cookie = 'sessionid=%s' % urllib.quote(
+      util.get_required_param(self, 'sessionid').encode('utf-8'))
     logging.info('Fetching with Cookie: %s', cookie)
 
     ig = instagram.Instagram()
