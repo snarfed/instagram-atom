@@ -40,10 +40,6 @@ handlers:
     X-Frame-Options: "SAMEORIGIN"
     X-XSS-Protection: "1; mode=block"
 
-- url: /atom
-  script: main.application
-  secure: always
-
 - url: /cookie
   script: cookie.application
   secure: always
