@@ -27,8 +27,12 @@ class CookieHandler(handlers.ModernHandler):
                                         cookie=cookie)
     except Exception as e:
       status, text = util.interpret_http_exception(e)
+      if not status:
+        logging.exception('oops!')
       self.response.status = status or 500
-      self.response.text = text or 'Unknown error.'
+      if isinstance(text, str):
+        text = text.decode('utf-8')
+      self.response.text = text or u'Unknown error.'
       return
 
     actor = resp.get('actor')
