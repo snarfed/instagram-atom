@@ -1,6 +1,7 @@
 """Fetch www.instagram.com with a cookie and convert it to Atom.
 """
 
+import datetime
 import logging
 import re
 import urllib
@@ -12,10 +13,13 @@ from oauth_dropins.webutil import handlers, util
 import webapp2
 from webob import exc
 
+CACHE_EXPIRATION = datetime.timedelta(minutes=5)
+
 
 class CookieHandler(handlers.ModernHandler):
   handle_exception = handlers.handle_exception
 
+  @handlers.memcache_response(CACHE_EXPIRATION)
   def get(self):
     cookie = 'sessionid=%s' % urllib.quote(
       util.get_required_param(self, 'sessionid').encode('utf-8'))

@@ -1,4 +1,0 @@
-blacklist:
-
-- subnet: 188.166.211.48
-  description: started fetching ktachibanam's feed every 10s on 1/17 3:20am PST
