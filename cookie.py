@@ -32,7 +32,7 @@ class CookieHandler(handlers.ModernHandler):
     except Exception as e:
       status, text = util.interpret_http_exception(e)
       if status:
-        self.response.status = status
+        self.response.status = 502 if status == 500 else status
       elif util.is_connection_failure(e):
         self.response.status = 504  # HTTP 504 Gateway Timeout
       else:
