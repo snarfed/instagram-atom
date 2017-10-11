@@ -13,7 +13,7 @@ from oauth_dropins.webutil import handlers, util
 import webapp2
 from webob import exc
 
-CACHE_EXPIRATION = datetime.timedelta(minutes=5)
+CACHE_EXPIRATION = datetime.timedelta(minutes=10)
 
 
 class CookieHandler(handlers.ModernHandler):
