@@ -25,14 +25,25 @@ class CookieHandler(handlers.ModernHandler):
       util.get_required_param(self, 'sessionid').encode('utf-8'))
     logging.info('Fetching with Cookie: %s', cookie)
 
+    host_url = self.request.host_url + '/'
     ig = instagram.Instagram()
     try:
       resp = ig.get_activities_response(group_id=source.FRIENDS, scrape=True,
                                         cookie=cookie)
     except Exception as e:
       status, text = util.interpret_http_exception(e)
-      if status:
-        self.response.status = 502 if status == 500 else status
+      if status in ('401', '403'):
+        self.response.headers['Content-Type'] = 'application/atom+xml'
+        self.response.out.write(atom.activities_to_atom([{
+          'object': {
+            'url': self.request.url,
+            'content': 'Your instagram-atom cookie isn\'t working. <a href="%s">Click here to regenerate your feed!</a>' % host_url,
+            },
+          }], {}, title='instagram-atom', host_url=host_url,
+          request_url=self.request.path_url))
+        return
+      elif status:
+        self.response.status = 502 if int(status) // 100 == 5 else status
       elif util.is_connection_failure(e):
         self.response.status = 504  # HTTP 504 Gateway Timeout
       else:
@@ -54,7 +65,7 @@ class CookieHandler(handlers.ModernHandler):
     title = 'instagram-atom feed for %s' % ig.actor_name(actor)
     self.response.headers['Content-Type'] = 'application/atom+xml'
     self.response.out.write(atom.activities_to_atom(
-      resp.get('items', []), actor, title=title, host_url=self.request.host_url + '/',
+      resp.get('items', []), actor, title=title, host_url=host_url,
       request_url=self.request.path_url, xml_base='https://www.instagram.com/'))
 
 
