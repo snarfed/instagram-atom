@@ -8,9 +8,13 @@
 <script type="text/javascript">
 function render() {
   sessionid = document.getElementById("sessionid").value.trim();
-  document.getElementById("link-div").style.color =
-    sessionid ? "black" : "lightgray";
-  url = window.location + "cookie?sessionid=" + sessionid;
+  document.getElementById("link-div").className =
+    sessionid ? "" : "disabled";
+  document.getElementById("html").disabled =
+    document.getElementById("atom").disabled =
+    !sessionid;
+  url = window.location + "cookie?sessionid=" + sessionid + "&format=" +
+    (document.getElementById("html").checked ? "html" : "atom");
   document.getElementById("link").innerHTML =
     sessionid ? "<a href='" + url + "'>" + url + "</a>" : url;
 }
@@ -34,14 +38,20 @@ follow, that you can subscribe to and read in your favorite RSS feed reader?</p>
 instructions</a> to extract the <code>instagram.com</code> cookie
 named <code>sessionid</code> from your browser and paste it below.</p>
 
-<nobr>
+<nobr id="session">
  <label for="sessionid">sessionid</label>
  <input type="text" id="sessionid" onChange="render()" onKeyUp="render()" />
 </nobr>
 
 <div id="link-div">
 <p>Now add this link to your feed reader, and you're done!</p>
-<p id="link">></p>
+<p id="link"></p>
+<p id="format">
+<input type="radio" id="atom" name="format" value="atom" checked onchange="render()">
+<label for="atom">Atom</label>
+<input type="radio" id="html" name="format" value="html" onchange="render()">
+<label for="html">HTML with <a href="http://microformats.org/wiki/microformats2">microformats2</a></label>
+</p>
 </div>
 
 <p id="privacy" class="lead">

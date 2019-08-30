@@ -8,7 +8,7 @@ import urllib
 import urllib2
 
 import appengine_config
-from granary import atom, instagram, source
+from granary import atom, instagram, microformats2, source
 from oauth_dropins.webutil import handlers, util
 import webapp2
 from webob import exc
@@ -62,11 +62,19 @@ class CookieHandler(handlers.ModernHandler):
     else:
       logging.warning("Couldn't determine Instagram user!")
 
-    title = 'instagram-atom feed for %s' % ig.actor_name(actor)
-    self.response.headers['Content-Type'] = 'application/atom+xml'
-    self.response.out.write(atom.activities_to_atom(
-      resp.get('items', []), actor, title=title, host_url=host_url,
-      request_url=self.request.path_url, xml_base='https://www.instagram.com/'))
+    activities = resp.get('items', [])
+    format = self.request.get('format', 'atom')
+    if format == 'atom':
+      title = 'instagram-atom feed for %s' % ig.actor_name(actor)
+      self.response.headers['Content-Type'] = 'application/atom+xml'
+      self.response.out.write(atom.activities_to_atom(
+        activities, actor, title=title, host_url=host_url,
+        request_url=self.request.path_url, xml_base='https://www.instagram.com/'))
+    elif format == 'html':
+      self.response.headers['Content-Type'] = 'text/html'
+      self.response.out.write(microformats2.activities_to_html(activities))
+    else:
+      self.abort(400, 'format must be either atom or html; got %s' % format)
 
 
 application = webapp2.WSGIApplication(

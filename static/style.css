@@ -10,8 +10,12 @@ body {
   font-size: medium;
 }
 
-label, input, #link {
+#session, #sessionid, #link, #format {
   margin-left: 1em;
+}
+
+.disabled, .disabled * {
+  color: lightgray;
 }
 
 #body, #graybody {
@@ -42,7 +46,7 @@ label, input, #link {
   -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
 }
 
-label {
+#session label {
   font-weight: bold;
 }
 
