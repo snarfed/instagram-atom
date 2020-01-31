@@ -39,16 +39,12 @@ class CookieHandler(handlers.ModernHandler):
           request_url=self.request.path_url))
         return
       elif status:
-        self.response.status = 502 if int(status) // 100 == 5 else status
-      elif util.is_connection_failure(e):
-        self.response.status = 504  # HTTP 504 Gateway Timeout
+        self.response.status = status
       else:
         logging.exception('oops!')
         self.response.status = 500
 
-      if isinstance(text, str):
-        text = text.decode('utf-8')
-      self.response.text = text or u'Unknown error.'
+      self.response.text = text or 'Unknown error.'
       return
 
     actor = resp.get('actor')
