@@ -28,7 +28,9 @@ class CookieHandler(handlers.ModernHandler):
                                         cookie=cookie)
     except Exception as e:
       status, text = util.interpret_http_exception(e)
-      if status in ('401', '403'):
+      if status in ('403',):
+        # used to also trigger this on 401, but IG now returns those sometimes
+        # as a form of rate limiting or bot detection.
         self.response.headers['Content-Type'] = 'application/atom+xml'
         self.response.out.write(atom.activities_to_atom([{
           'object': {
