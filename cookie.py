@@ -11,6 +11,9 @@ import webapp2
 
 CACHE_EXPIRATION = datetime.timedelta(minutes=10)
 
+# See https://www.cloudimage.io/
+IMAGE_PROXY_URL_BASE = 'https://aujtzahimq.cloudimg.io/v7/'
+
 
 class CookieHandler(handlers.ModernHandler):
   handle_exception = handlers.handle_exception
@@ -58,6 +61,23 @@ class CookieHandler(handlers.ModernHandler):
       logging.warning("Couldn't determine Instagram user!")
 
     activities = resp.get('items', [])
+
+    # Pass images through image proxy to cache them
+    for a in activities:
+      obj = a.get('object')
+      for elem in ([obj, obj.get('author'), a.get('actor')] +
+                   obj.get('replies', {}).get('items', []) +
+                   obj.get('attachments', []) +
+                   obj.get('tags', [])):
+        if elem:
+          for img in util.get_list(elem, 'image'):
+            url = img.get('url')
+            if url and not url.startswith(IMAGE_PROXY_URL_BASE):
+              # Note that url isn't URL-encoded here, that's intentional.
+              # cloudimage.io doesn't decode it.
+              img['url'] = IMAGE_PROXY_URL_BASE + url
+
+    # Generate output
     format = self.request.get('format', 'atom')
     if format == 'atom':
       title = 'instagram-atom feed for %s' % ig.actor_name(actor)
