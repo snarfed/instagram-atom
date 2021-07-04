@@ -13,6 +13,8 @@ CACHE_EXPIRATION = datetime.timedelta(minutes=10)
 
 # See https://www.cloudimage.io/
 IMAGE_PROXY_URL_BASE = 'https://aujtzahimq.cloudimg.io/v7/'
+# https://dash.cloudflare.com/dcc4dadb279e9e9e69e9e84ec82d9303/workers/view/caching-proxy
+VIDEO_PROXY_URL_BASE = 'https://caching-proxy.snarfed.workers.dev/'
 
 
 class CookieHandler(handlers.ModernHandler):
@@ -62,9 +64,10 @@ class CookieHandler(handlers.ModernHandler):
 
     activities = resp.get('items', [])
 
-    # Pass images through image proxy to cache them
+    # Pass images and videos through caching proxy to cache them
     for a in activities:
       microformats2.prefix_image_urls(a, IMAGE_PROXY_URL_BASE)
+      microformats2.prefix_video_urls(a, VIDEO_PROXY_URL_BASE)
 
     # Generate output
     format = self.request.get('format', 'atom')
