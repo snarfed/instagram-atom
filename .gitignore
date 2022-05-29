@@ -6,3 +6,7 @@ instagram_client_id_local
 instagram_client_secret_local
 /l
 /local*
+node_modules
+web-ext-artifacts
+yarn.lock
+yarn-error.log

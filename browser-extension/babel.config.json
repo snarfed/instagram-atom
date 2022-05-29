@@ -1,0 +1,8 @@
+// Babel config
+// https://babeljs.io/docs/en/configuration#babelconfigjson
+// https://babeljs.io/docs/en/options
+{
+  // Needed for Jest to support async/await
+  // https://jestjs.io/docs/en/tutorial-async#asyncawait
+  presets: [["@babel/preset-env", {targets: {node: "current"}}]],
+}

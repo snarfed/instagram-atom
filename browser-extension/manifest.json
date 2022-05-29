@@ -1,0 +1,36 @@
+{
+	"name": "Instagram Atom",
+	"version": "0.1.0",
+	"description": "Converts your Instagram feed into an Atom feed that you can read in any feed reader!",
+	"homepage_url": "https://instagram-atom.appspot.com/",
+    "manifest_version": 2,
+    "minimum_chrome_version": "74",
+    "applications": {
+        "gecko": {
+            "id": "instagram-atom@snarfed.org",
+            "strict_min_version": "67.0"
+        }
+    },
+    "permissions": [
+        "*://*.instagram-atom.appspot.com/*",
+        "*://*.instagram.com/*",
+        "alarms",
+        "contextualIdentities",
+        "cookies",
+        "storage",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "background": {
+        "persistent": true,
+        "page": "background.html"
+    },
+    "icons": {
+        // "128": "bridgy_logo_128.jpg",
+        // "1024": "bridgy_logo_square_1024.jpg"
+    },
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+    }
+}
