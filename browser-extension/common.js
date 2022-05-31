@@ -203,7 +203,7 @@ class Silo {
    *
    * @param {String} path_query
    * @param {String} body
-   * @returns {Object} JSON parsed response from instagram-atom
+   * @returns {String} response body from instagram-atom
    */
   static async postIA(path_query, body) {
     const token = (await browser.storage.sync.get(['token'])).token
@@ -224,12 +224,12 @@ class Silo {
         body: body,
       })
       console.debug(`Got ${res.status}`)
+      let text = await res.text()
+      console.debug(text)
       if (res.ok) {
-        let json = await res.json()
-        console.debug(json)
-        return json
+        return text
       } else {
-        await this.recordError(await res.text())
+        await this.recordError(text)
       }
     } catch (err) {
       await this.recordError(err)
