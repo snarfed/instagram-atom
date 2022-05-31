@@ -1,0 +1,48 @@
+# CircleCI automatically reads this file from our repo and uses it for
+# configuration. Docs:
+# https://circleci.com/docs/2.0/configuration-reference/
+# https://circleci.com/docs/2.0/sample-config/
+version: 2
+
+jobs:
+  build:
+    docker:
+      # https://circleci.com/docs/2.0/google-auth/#installing-the-google-cloud-sdk
+      - image: google/cloud-sdk
+
+    environment:
+      # https://github.com/GoogleCloudPlatform/google-cloud-datastore/issues/168#issuecomment-294418422
+      - APPLICATION_ID: dev~instagram-atom
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: venv-2-{{ .Branch }}-{{ checksum "requirements.txt" }}
+
+      - run:
+          name: Dependencies
+          command: |
+            apt-get update
+            apt-get install -y python3.9 python3.9-venv python3.9-dev
+            python3.9 -m venv local
+            . local/bin/activate
+            pip install -U pip
+            pip install cython  # avoids grpcio install bug (search _needs_stub)
+            pip install -U -r requirements.txt
+
+      - run:
+          name: Build and test
+          command: |
+            . local/bin/activate
+            gcloud beta emulators datastore start --no-store-on-disk --consistency=1.0 --host-port=localhost:8089 --quiet &
+            sleep 5s
+            python -m unittest discover -v
+
+      - save_cache:
+          key: venv-2-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - local
+
+      - store_artifacts:
+          path: /tmp/coverage_html
