@@ -98,7 +98,8 @@ def cookie():
 
 @app.route('/feed/get')
 def get_feed():
-  return 'OK'
+  feed = Feed.get_by_id(request.args['token'])
+  return render(json_loads(feed.as1_json), actor=json_loads(feed.actor_json))
 
 
 @app.route('/feed/store', methods=['POST'])
@@ -120,7 +121,7 @@ def render(activities, actor=None):
   # Generate output
   format = request.args.get('format') or 'atom'
   if format == 'atom':
-    title = 'instagram-atom feed for %s' % ig.actor_name(actor)
+    title = 'instagram-atom feed for %s' % source.Source.actor_name(actor)
     return atom.activities_to_atom(
       activities, actor, title=title, host_url=request.host_url,
       request_url=request.url, xml_base='https://www.instagram.com/',
