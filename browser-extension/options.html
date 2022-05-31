@@ -10,17 +10,23 @@
     .pending { color: goldenrod; }
     .error { color: red; }
     .disabled { color: gray }
+    .feed {
+      width: 100%;
+      color: blue;
+      font-family: monospace;
+      font-weight: bold;
+      border: 0;
+    }
   </style>
 </head>
 
 <body>
   <h2>Instagram Atom</h2>
   <p>Add this feed URL to your feed reader:</p>
-  <p><b><code id="feedUrl" class="pending">...</code></b></p>
+  <p><input type="text" disabled id="feedUrl" class="feed" value="..." /></p>
   <br>
   <ul>
     <li><b>Status</b>: <span id="status" class="pending">...</span></li>
-    <li>Instagram account: <a id="username" target="_blank"></a></li>
     <li>Last success: <span id="lastSuccess"></li>
     <li>Last attempt: <span id="lastStart"></li>
     <li><button id="poll">Poll now</button></li>
