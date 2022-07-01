@@ -26,8 +26,7 @@
         "page": "background.html"
     },
     "icons": {
-        // "128": "bridgy_logo_128.jpg",
-        // "1024": "bridgy_logo_square_1024.jpg"
+        "200": "logo.png"
     },
     "options_ui": {
         "page": "options.html",

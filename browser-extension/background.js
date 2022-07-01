@@ -18,7 +18,7 @@ const FREQUENCY_MIN = 30
 
 function schedulePoll() {
   browser.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name == silo.alarmName()) {
+    if (alarm.name == Instagram.alarmName()) {
       Instagram.poll()
     }
   })
@@ -29,7 +29,7 @@ function schedulePoll() {
       if (!alarm) {
         console.log(`Scheduling ${silo.NAME} poll every ${FREQUENCY_MIN}m`)
         browser.alarms.create(name, {
-          delayInMinutes: 0,
+          delayInMinutes: FREQUENCY_MIN,
           periodInMinutes: FREQUENCY_MIN,
         })
       }
@@ -45,6 +45,9 @@ for (const silo of [Instagram]) {
   })
 }
 
-generateToken().then(() => {
+generateToken().then((generated) => {
+  if (generated) {
+    Instagram.poll()
+  }
   schedulePoll()
 })

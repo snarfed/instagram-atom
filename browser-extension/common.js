@@ -13,6 +13,7 @@ async function generateToken(force) {
     token = Math.random().toString(36).substring(2, 15)
     await browser.storage.sync.set({token: token})
     console.log(`Generated new token: ${token}.`)
+    return token
   }
 }
 

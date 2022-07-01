@@ -13,7 +13,7 @@ async function update() {
   console.debug('Updating options page UI')
 
   const token = (await browser.storage.sync.get()).token
-  document.querySelector(`#feedUrl`).value = `${IA_BASE_URL}/feed?token=${token}`
+  document.querySelector(`#feedUrl`).value = `${IA_BASE_URL}/feed/get?token=${token}`
 
   const data = await browser.storage.local.get()
   for (const silo of [Instagram]) {
