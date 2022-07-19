@@ -10,7 +10,7 @@ class Instagram extends Silo {
    * Returns the URL path to the feed of posts.
    */
   static feedPath() {
-    return '/'
+    return '/api/v1/feed/timeline/'
   }
 
   /**
@@ -27,8 +27,8 @@ class Instagram extends Silo {
 
 Instagram.DOMAIN = 'instagram.com'
 Instagram.NAME = 'instagram'
-Instagram.BASE_URL = 'https://www.instagram.com'
-Instagram.LOGIN_URL = `${Instagram.BASE_URL}/accounts/login/`
+Instagram.BASE_URL = 'https://i.instagram.com'
+Instagram.LOGIN_URL = `https://www.instagram.com/accounts/login/`
 Instagram.COOKIE = 'sessionid'
 
 export {

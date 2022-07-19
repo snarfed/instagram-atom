@@ -4,7 +4,7 @@ import unittest
 
 from granary.tests.test_instagram import (
     HTML_ACTIVITIES_FULL_V2,
-    HTML_FEED_COMPLETE_V2,
+    HTML_FEED_V2,
 )
 from granary.instagram import Instagram
 from oauth_dropins.webutil import testutil, util
@@ -205,17 +205,20 @@ class InstagramAtomTest(unittest.TestCase, testutil.Asserts):
         super().tearDown()
 
     def test_store_feed(self):
-        resp = self.client.post('/feed/store?token=towkin', data=HTML_FEED_COMPLETE_V2)
+        resp = self.client.post('/feed/store?token=towkin', json=HTML_FEED_V2)
         self.assertEqual(200, resp.status_code)
         self.assertEqual('OK', resp.get_data(as_text=True))
 
         feed = Feed.get_by_id('towkin')
-        self.assertEqual(HTML_FEED_COMPLETE_V2, feed.html)
+        self.assertEqual(HTML_FEED_V2, json_loads(feed.json))
         self.assertEqual(HTML_ACTIVITIES_FULL_V2, json_loads(feed.as1_json))
+
+    def test_store_feed_existing(self):
+        Feed(id='towkin', html='foo', as1_json='[]', actor_json='{}').put()
+        self.test_store_feed()
 
     def test_get_feed(self):
         Feed(id='towkin',
-             html=HTML_FEED_COMPLETE_V2,
              as1_json=json_dumps(HTML_ACTIVITIES_FULL_V2),
              actor_json='null').put()
 
