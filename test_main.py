@@ -210,11 +210,11 @@ class InstagramAtomTest(unittest.TestCase, testutil.Asserts):
         self.assertEqual('OK', resp.get_data(as_text=True))
 
         feed = Feed.get_by_id('towkin')
-        self.assertEqual(HTML_FEED_V2, json_loads(feed.json))
+        self.assertEqual(HTML_FEED_V2, json_loads(feed.input))
         self.assertEqual(HTML_ACTIVITIES_FULL_V2, json_loads(feed.as1_json))
 
     def test_store_feed_existing(self):
-        Feed(id='towkin', html='foo', as1_json='[]', actor_json='{}').put()
+        Feed(id='towkin', input='foo', as1_json='[]', actor_json='{}').put()
         self.test_store_feed()
 
     def test_get_feed(self):
