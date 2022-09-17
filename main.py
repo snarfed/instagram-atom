@@ -9,7 +9,7 @@ from flask.views import View
 from flask_caching import Cache
 import flask_gae_static
 from google.cloud import ndb
-from granary import atom, instagram, microformats2, source
+from granary import as1, atom, instagram, microformats2, source
 from oauth_dropins.webutil import (
   appengine_config,
   appengine_info,
@@ -121,7 +121,7 @@ def render(activities, actor=None):
   # Generate output
   format = request.args.get('format') or 'atom'
   if format == 'atom':
-    title = 'instagram-atom feed for %s' % source.Source.actor_name(actor)
+    title = 'instagram-atom feed for %s' % as1.actor_name(actor)
     return atom.activities_to_atom(
       activities, actor, title=title, host_url=request.host_url,
       request_url=request.url, xml_base='https://www.instagram.com/',
