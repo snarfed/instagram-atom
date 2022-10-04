@@ -115,8 +115,8 @@ def store_feed():
 def render(activities, actor=None):
   # Pass images and videos through caching proxy to cache them
   for a in activities:
-    microformats2.prefix_image_urls(a, IMAGE_PROXY_URL_BASE)
-    microformats2.prefix_video_urls(a, VIDEO_PROXY_URL_BASE)
+    as1.prefix_urls(a, 'image', IMAGE_PROXY_URL_BASE)
+    as1.prefix_urls(a, 'stream', VIDEO_PROXY_URL_BASE)
 
   # Generate output
   format = request.args.get('format') or 'atom'
