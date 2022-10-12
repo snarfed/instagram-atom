@@ -4,24 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Instagram Atom feeds</title>
 <link href="/static/style.css" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript">
-function render() {
-  sessionid = document.getElementById("sessionid").value.trim();
-  document.getElementById("link-div").className =
-    sessionid ? "" : "disabled";
-  document.getElementById("html").disabled =
-    document.getElementById("atom").disabled =
-    !sessionid;
-  url = window.location + "cookie?sessionid=" + sessionid + "&format=" +
-    (document.getElementById("html").checked ? "html" : "atom");
-  document.getElementById("link").innerHTML =
-    sessionid ? "<a href='" + url + "'>" + url + "</a>" : url;
-}
-window.onload = render;
-</script>
 </head>
-
 
 <body>
 
@@ -31,31 +14,8 @@ window.onload = render;
 </div>
 
 <div id="body">
-<p><em>Warning: this app is inconsistent due to throttling on Instagram's side. Caveat emptor!</em></p>
 
-<p>Want an Atom feed of your Instagram stream, ie photos from the people you follow, that you can subscribe to and read in your favorite feed reader?</p>
-
-<p><a href="http://www.wikihow.com/View-Cookies" target="_blank">Follow these instructions</a> to extract the <code>instagram.com</code> cookie named <code>sessionid</code> from your browser and paste it below.</p>
-
-<nobr id="session">
- <label for="sessionid">sessionid</label>
- <input type="text" id="sessionid" onChange="render()" onKeyUp="render()" />
-</nobr>
-
-<div id="link-div">
-<p>Now add this link to your feed reader, and you're done!</p>
-<p id="link"></p>
-<p id="format">
-<input type="radio" id="atom" name="format" value="atom" checked onchange="render()">
-<label for="atom">Atom</label>
-<input type="radio" id="html" name="format" value="html" onchange="render()">
-<label for="html">HTML with <a href="http://microformats.org/wiki/microformats2">microformats2</a></label>
-</p>
-</div>
-
-<p id="privacy" class="lead">
-This app does <em style="font-style: normal">not</em> store or use your Instagram data, username, password, or cookie. It only reformats your news feed and passes it to your feed reader when requested. You can confirm by <a href="https://github.com/snarfed/instagram-atom">examining its source code</a>.
-</p>
+<p><b><em>This site is temporarily offline for new feeds. We're working on bringing it back via a browser extension. Watch this space!</em></b></p>
 
 <div id="bottom"></div>
 
