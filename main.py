@@ -27,7 +27,7 @@ IMAGE_PROXY_URL_BASE = 'https://aujtzahimq.cloudimg.io/v7/'
 VIDEO_PROXY_URL_BASE = 'https://caching-proxy.snarfed.workers.dev/'
 
 # Flask app
-app = Flask('instagram-atom')
+app = Flask('instagram-atom', static_folder=None)
 app.template_folder = './templates'
 app.config.from_mapping(
     ENV='development' if appengine_info.DEBUG else 'production',
