@@ -16,13 +16,15 @@ import {Instagram} from './instagram.js'
 
 const FREQUENCY_MIN = 30
 
-function schedulePoll() {
-  browser.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name == Instagram.alarmName()) {
-      Instagram.poll()
-    }
-  })
+// Must be top level in non-persistent background (aka event) pages
+// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Background_scripts#move_event_listeners
+browser.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name == Instagram.alarmName()) {
+    Instagram.poll()
+  }
+})
 
+function schedulePoll() {
   for (const silo of [Instagram]) {
     const name = silo.alarmName()
     browser.alarms.get(name).then(function(alarm) {
@@ -35,14 +37,6 @@ function schedulePoll() {
       }
     })
   }
-}
-
-for (const silo of [Instagram]) {
-  silo.findCookies().then((cookies) => {
-    if (!cookies) {
-      browser.tabs.create({url: silo.LOGIN_URL})
-    }
-  })
 }
 
 generateToken().then((generated) => {

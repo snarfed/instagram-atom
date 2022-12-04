@@ -36,7 +36,7 @@ test('poll', async () => {
   expect(await Instagram.storageGet('lastSuccess')).toBeGreaterThanOrEqual(
     await Instagram.storageGet('lastStart'))
 
-  expect(fetch.mock.calls[0][0]).toBe('https://www.instagram.com/')
+  expect(fetch.mock.calls[0][0]).toBe('https://i.instagram.com/api/v1/feed/timeline/')
   expect(fetch.mock.calls[1][0]).toBe(`${IA_BASE_URL}/feed/store?token=towkin`)
   expect(fetch.mock.calls[1][1].body).toBe('fake feed')
 })
