@@ -210,8 +210,8 @@ class InstagramAtomTest(unittest.TestCase, testutil.Asserts):
         self.assertEqual('OK', resp.get_data(as_text=True))
 
         feed = Feed.get_by_id('towkin')
-        self.assertEqual(HTML_FEED_V2, json_loads(feed.input))
-        self.assertEqual(HTML_ACTIVITIES_FULL_V2, json_loads(feed.as1_json))
+        self.assert_equals(HTML_FEED_V2, json_loads(feed.input))
+        self.assert_equals(HTML_ACTIVITIES_FULL_V2, json_loads(feed.as1_json))
 
     def test_store_feed_existing(self):
         Feed(id='towkin', input='foo', as1_json='[]', actor_json='{}').put()
@@ -223,5 +223,11 @@ class InstagramAtomTest(unittest.TestCase, testutil.Asserts):
              actor_json='null').put()
 
         resp = self.client.get('/feed/get?token=towkin')
+        self.assert_equals(200, resp.status_code)
+        self.assert_multiline_equals(ATOM, resp.get_data(as_text=True))
+
+    def test_get_feed_missing(self):
+        resp = self.client.get('/feed/get?token=missing')
         self.assertEqual(200, resp.status_code)
-        self.assertEqual(ATOM, resp.get_data(as_text=True))
+        self.assertTrue(resp.get_data(as_text=True).startswith(
+            '<?xml version="1.0" encoding="UTF-8"?>'))

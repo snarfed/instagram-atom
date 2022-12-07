@@ -99,7 +99,13 @@ def cookie():
 @app.route('/feed/get')
 def get_feed():
   feed = Feed.get_by_id(request.args['token'])
-  return render(json_loads(feed.as1_json), actor=json_loads(feed.actor_json))
+  if feed:
+    activities = json_loads(feed.as1_json)
+    actor = json_loads(feed.actor_json)
+  else:
+    activities = []
+    actor = {}
+  return render(activities, actor={})
 
 
 @app.route('/feed/store', methods=['POST'])
